@@ -50,6 +50,10 @@ function OnRightButtonPressed()
 					GameEvents.SendCustomGameEventToServer( "repair_order", { pID: iPlayerID, mainSelected: mainSelected, targetIndex: e.entityIndex, queue: pressedShift })
 					return true;
 				}
+				else if (IsCustomBuilding(e.entityIndex) && mainSelectedName == "orc_peon" && Entities.GetUnitName( e.entityIndex ) == "orc_burrow"){
+					$.Msg(" Targeted orc burrow")
+					GameEvents.SendCustomGameEventToServer( "burrow_order", { pID: iPlayerID, mainSelected: mainSelected, targetIndex: e.entityIndex })
+				}
 				return false;
 			}
 		}
@@ -72,8 +76,14 @@ function OnRightButtonPressed()
 					$.Msg(" Targeted gold mine")
 					GameEvents.SendCustomGameEventToServer( "building_rally_order", { pID: iPlayerID, mainSelected: mainSelected, rally_type: "mine", targetIndex: e.entityIndex })
 				}
-				else{
-					$.Msg(" Targeted a building")
+				else if ( IsShop( mainSelected ) && Entities.IsControllableByPlayer( e.entityIndex, iPlayerID )  && ( Entities.IsHero( e.entityIndex ) || Entities.IsInventoryEnabled( e.entityIndex )) && Entities.GetRangeToUnit( mainSelected, e.entityIndex) <= 900)
+				{
+					$.Msg(" Targeted unit to shop")
+					GameEvents.SendCustomGameEventToServer( "shop_active_order", { shop: mainSelected, unit: e.entityIndex, targeted: true})
+				}
+				else
+				{
+					$.Msg(" Targeted some entity to rally point")
 					GameEvents.SendCustomGameEventToServer( "building_rally_order", { pID: iPlayerID, mainSelected: mainSelected, rally_type: "target", targetIndex: e.entityIndex })
 				}
 				return true;
@@ -113,7 +123,11 @@ function OnRightButtonPressed()
 }
 
 function IsBuilder(entIndex) {
-	return (Entities.GetUnitLabel( entIndex ) == "builder")
+	return (CustomNetTables.GetTableValue( "builders", entIndex.toString()))
+}
+
+function IsShop(entIndex) {
+	return ( Entities.GetAbilityByName( entIndex, "ability_shop") != -1)
 }
 
 // Main mouse event callback

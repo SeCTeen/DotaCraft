@@ -387,7 +387,6 @@ function dotacraft:InitGameMode()
   	GameRules.UnitUpgrades = LoadKeyValues("scripts/kv/unit_upgrades.kv")
   	GameRules.Abilities = LoadKeyValues("scripts/kv/abilities.kv")
   	GameRules.Buildings = LoadKeyValues("scripts/kv/buildings.kv")
-	GameRules.Shops = LoadKeyValues("scripts/kv/shops.kv")
 
   	GameRules.ALLTREES = Entities:FindAllByClassname("ent_dota_tree")
   	for _,t in pairs(GameRules.ALLTREES) do
@@ -491,7 +490,7 @@ function dotacraft:PostLoadPrecache()
 	PrecacheUnitByNameAsync("orc_tauren_totem", function(...) end)
 	PrecacheUnitByNameAsync("orc_watch_tower", function(...) end)
 
-	PrecacheUnitByNameAsync("npc_dota_hero_keeper_of_the_light", function(...) end)
+	--PrecacheUnitByNameAsync("npc_dota_hero_keeper_of_the_light", function(...) end)
 	PrecacheUnitByNameAsync("npc_dota_hero_zuus", function(...) end)
 	PrecacheUnitByNameAsync("npc_dota_hero_omniknight", function(...) end)
 	PrecacheUnitByNameAsync("npc_dota_hero_Invoker", function(...) end)
@@ -595,12 +594,17 @@ function dotacraft:OnHeroInGame(hero)
 
 		dotacraft:ModifyStatBonuses(hero)
 
+		-- Innate abilities
 		if hero:HasAbility("nightelf_shadow_meld") then
 			hero:FindAbilityByName("nightelf_shadow_meld"):SetLevel(1)
 		end
 
 		if hero:HasAbility("blood_mage_orbs") then
 			hero:FindAbilityByName("blood_mage_orbs"):SetLevel(1)
+		end
+
+		if hero:HasAbility("firelord_arcana_model") then
+			hero:FindAbilityByName("firelord_arcana_model"):SetLevel(1)
 		end
 	end
 
@@ -791,6 +795,12 @@ end
 function dotacraft:OnGameInProgress()
 	print("[DOTACRAFT] The game has officially begun")
 
+	-- Setup Tavern
+	local taverns = Entities:FindAllByName("*shop_tavern")
+	for k,v in pairs(taverns) do
+		TeachAbility(v,"ability_shop")
+	end
+
 	GameRules.DayTime = true
 	Timers:CreateTimer(240, function() 
 		if GameRules.DayTime then
@@ -828,10 +838,9 @@ end
 
 -- The overall game state has changed
 function dotacraft:OnGameRulesStateChange(keys)
-	print("[DOTACRAFT] GameRules State Changed")
-	--DeepPrintTable(keys)
-
 	local newState = GameRules:State_Get()
+
+	print("[DOTACRAFT] GameRules State Changed: ",newState)
 		
 	-- send the panaroma developer at each stage to ensure all js are exposed to it
 	dotacraft:Panaroma_Developer_Mode(newState)
@@ -1111,11 +1120,18 @@ function dotacraft:OnTreeCut(keys)
 	    end
 	end
 	
-	-- Check for Night Elf Sentinels
+	-- Check for Night Elf Sentinels and Wisps
 	local units = FindUnitsInRadius(DOTA_TEAM_NEUTRALS, Vector(treeX,treeY,0), nil, 64, DOTA_UNIT_TARGET_TEAM_ENEMY, DOTA_UNIT_TARGET_BASIC, 0, FIND_ANY_ORDER, false)
 	for _,v in pairs(units) do
-		if v:GetUnitName() == "nightelf_sentinel_owl" then
+		local unit_name = v:GetUnitName()
+		if unit_name == "nightelf_sentinel_owl" then
 			v:ForceKill(false)
+		elseif unit_name == "nightelf_wisp" then
+			local gather_ability = v:FindAbilityByName("nightelf_gather")
+			v:RemoveModifierByName("modifier_gathering_lumber")
+			v.state = "idle"
+			v:SetMoveCapability(DOTA_UNIT_CAP_MOVE_GROUND)
+			ToggleOff(gather_ability)
 		end
 	end
 end
@@ -1186,14 +1202,19 @@ function dotacraft:OnEntityKilled( event )
 	-- Hero Killed
 	if killedUnit:IsRealHero() then
 		print("A Hero was killed")
+		
+		-- add hero to tavern, this function also works out cost etc
+		unit_shops:AddHeroToTavern(killedUnit)
+		
 		if IsValidEntity(player.altar) then
 			print("Player has "..#player.altar_structures.." valid "..player.altar:GetUnitName())
 			for _,altar in pairs(player.altar_structures) do
-				print("ALLOW REVIVAL OF THIS THIS HERO AT THIS ALTAR")
-
 				-- Set the strings for the _acquired ability to find and _revival ability to add
 				local level = killedUnit:GetLevel()
 				local name = killedUnit.RespawnAbility
+
+				print("ALLOW REVIVAL OF THIS THIS HERO AT THIS ALTAR - Ability: ",name)
+
 				if name then
 					local acquired_ability_name = name.."_acquired"
 					local revival_ability_name = name.."_revive"..level
@@ -1211,8 +1232,12 @@ function dotacraft:OnEntityKilled( event )
 							new_ability:SetLevel(new_ability:GetMaxLevel())
 							print("ADDED "..revival_ability_name.." at level "..new_ability:GetMaxLevel())
 						else
-							print("ABILITY COULDNT BE CHANGED BECAUSE OF REASONS")
+							print("ABILITY COULDNT BE CHANGED BECAUSE NO "..revival_ability_name.." WAS FOUND ON THIS ALTAR")
 						end
+					else
+						-- The ability couldn't be found (a neutral hero), add it
+						print("ABILITY COULDNT BE CHANGED BECAUSE NO "..acquired_ability_name.." WAS FOUND ON THIS ALTAR")
+
 					end
 				end
 			end

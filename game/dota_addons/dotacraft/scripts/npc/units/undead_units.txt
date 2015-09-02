@@ -26,6 +26,8 @@
 	"ModelScale"				"0.8"
 	"Level"						"1"
 	"HealthBarOffset"			"140"
+	"SoundSet"                  "Hero_Warlock"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
 	
 	"UnitLabel"					"builder"
 
@@ -136,6 +138,8 @@
 	"ModelScale"				"0.8"
 	"Level"						"1"
 	"HealthBarOffset"			"140"
+	"SoundSet"                  "Hero_Nevermore"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
 	
 	// Abilities
 	//----------------------------------------------------------------
@@ -227,6 +231,9 @@
 	"ModelScale"				"0.7"
 	"Level"						"2"
 	"HealthBarOffset"			"140"
+	"HasInventory"				"1"
+	"SoundSet"                  "Hero_LifeStealer"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_life_stealer.vsndevts"
 
 	"AttacksEnabled"			"ground"
 	
@@ -237,6 +244,7 @@
 	"Ability2"					"undead_return_resources"	
 	"Ability3"					"undead_cannibalize_disabled"	 //Reference: Acan
 	"Ability4"					"undead_ghoul_frenzy_disabled"
+	"Ability10"					"undead_backpack_disabled"
 	"Ability11"					"undead_blight_regen"
 	
 	// Armor
@@ -327,6 +335,9 @@
 	"ModelScale"				"0.80"
 	"Level"						"3"
 	"HealthBarOffset"			"140"
+	"HasInventory"				"1"
+	"SoundSet"                  "Hero_Weaver"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_weaver.vsndevts"
 	
 	"AttacksEnabled"			"ground"
 
@@ -337,6 +348,7 @@
 	"Ability2"					""	 //Reference: Aspa
 	"Ability3"					"undead_burrow_disabled"	 //Reference: Abur
 	"Ability4"					""	 //Reference: Aiun
+	"Ability10"					"undead_backpack_disabled"
 	"Ability11"					"undead_blight_regen"
 	
 	// Armor
@@ -430,6 +442,8 @@
 	"ModelScale"				"1"
 	"Level"						"2"
 	"HealthBarOffset"			"140"
+	"SoundSet"                  "Visage_Familiar"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_visage.vsndevts"
 	
 	"AttacksEnabled"			"ground, air"
 
@@ -519,6 +533,9 @@
 	"ModelScale"				"1"
 	"Level"						"4"
 	"HealthBarOffset"			"140"
+	"HasInventory"				"1"
+	"SoundSet"                  "Hero_Pudge"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts"
 
 	"AttacksEnabled"			"ground"
 	
@@ -528,6 +545,7 @@
 	"Ability1"					"undead_cannibalize_disabled"	 //Reference: Aap1
 	"Ability2"					"undead_disease_cloud_disabled"	 //Reference: Aiun
 	"Ability3"					""	 //Reference: Acn2
+	"Ability10"					"undead_backpack_disabled"
 	"Ability11"					"undead_blight_regen"
 
 	// Armor
@@ -621,6 +639,7 @@
 	"ModelScale"				"1"
 	"Level"						"2"
 	"HealthBarOffset"			"140"
+	"SoundSet"					"Creep_Bad_Engine"
 
 	"AttacksEnabled"			"ground"
 
@@ -725,6 +744,8 @@
 	"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
 	"HealthBarOffset"			"180"
 	"FormationRank"				"2"
+	"SoundSet"                  "Hero_ObsidianDestroyer"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
 	
 	"AttacksEnabled"			"ground, air"
 
@@ -832,6 +853,8 @@
 	"ModelScale"				"1"
 	"Level"						"5"
 	"HealthBarOffset"			"350"
+	"SoundSet"                  "Hero_ObsidianDestroyer"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
 
 	"AttacksEnabled"			"ground, air"
 	
@@ -936,6 +959,9 @@
 	"ModelScale"				"0.8"
 	"Level"						"2"
 	"HealthBarOffset"			"140"
+	"HasInventory"				"1"
+	"SoundSet"                  "Hero_Necrolyte"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_necrolyte.vsndevts"
 
 	"AttacksEnabled"			"ground, air"
 	
@@ -946,6 +972,7 @@
 	"Ability2"					"undead_raise_dead_disabled"	 //Reference: Arai
 	"Ability3"					"undead_unholy_frenzy_disabled"	 //Reference: Auhf
 	"Ability4"					""	 //Reference: Aiun
+	"Ability10"					"undead_backpack_disabled"
 	"Ability11"					"undead_blight_regen"
 	
 	// Armor
@@ -1043,6 +1070,9 @@
 	"ModelScale"				"1"
 	"Level"						"2"
 	"HealthBarOffset"			"140"
+	"HasInventory"				"1"
+	"SoundSet"                  "Hero_DeathProphet"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
 	
 	"AttacksEnabled"			"ground, air"
 
@@ -1053,6 +1083,7 @@
 	"Ability2"					"undead_curse_disabled"	 //Reference: Acrs
 	"Ability3"					"undead_possession_disabled"	 //Reference: Aps2
 	"Ability4"					""	 //Reference: Aiun
+	"Ability10"					"undead_backpack_disabled"
 	"Ability11"					"undead_blight_regen"
 	
 	// Armor
@@ -1148,6 +1179,7 @@
 	"ModelScale"				"1"
 	"Level"						"1"
 	"HealthBarOffset"			"140"
+	"SoundSet"					"Creep_Good_Melee"
 
 	"AttacksEnabled"			"ground"
 	
@@ -1237,6 +1269,8 @@
 	"ModelScale"				"0.7"
 	"Level"						"1"
 	"HealthBarOffset"			"140"
+	"SoundSet"                  "Hero_Pugna"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_pugna.vsndevts"
 
 	"AttacksEnabled"			"ground, air"
 	
@@ -1338,6 +1372,8 @@
 	"ModelScale"				"1.2"
 	"Level"						"6"
 	"HealthBarOffset"			"180"
+	"SoundSet"                  "Hero_Winter_Wyvern"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_winter_wyvern.vsndevts"
 
 	"AttacksEnabled"			"ground, air"
 

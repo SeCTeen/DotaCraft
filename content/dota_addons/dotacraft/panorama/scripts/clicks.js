@@ -131,30 +131,37 @@ function OnLeftButtonPressed() {
     var mainSelectedName = Entities.GetUnitName( mainSelected )
     var cursor = GameUI.GetCursorPosition();
     var mouseEntities = GameUI.FindScreenEntities( cursor );
-    mouseEntities = mouseEntities.filter( function(e) { return e.entityIndex != mainSelected; } )
     
-    // Hero or unit with inventory
-    if (UnitCanPurchase(mainSelected))
+    Hide_All_Shops()
+
+    if (mouseEntities.length > 0)
     {
-        if (mouseEntities.length > 0)
+        for ( var e of mouseEntities )
         {
-            for ( var e of mouseEntities )
+            if ((IsShop(e.entityIndex) && IsAlliedUnit(mainSelected,e.entityIndex)) || IsTavern(e.entityIndex))
             {
-                if (IsShop(e.entityIndex) && (IsAlliedUnit(mainSelected,e.entityIndex) || IsNeutralUnit(e.entityIndex)))
+                $.Msg("Player "+iPlayerID+" Clicked on a Shop")
+                ShowShop(e.entityIndex)
+
+                // Hero or unit with inventory
+                if (UnitCanPurchase(mainSelected))
                 {
-                    $.Msg("Player "+iPlayerID+" Clicked on a Shop")
-                    //Shop.visible = true - Need a way to Set this from here
+                    GameEvents.SendCustomGameEventToServer( "shop_active_order", { shop: e.entityIndex, unit: mainSelected, targeted: true})
                     return true
                 }
             }
         }
     }
-    
+
     return false
 }
 
 function UnitCanPurchase(entIndex) {
-    return (Entities.IsRealHero(entIndex) || Entities.GetAbilityByName( entIndex, "ability_backpack") != -1)
+    return (Entities.IsRealHero(entIndex) || 
+            Entities.GetAbilityByName(entIndex, "human_backpack") != -1 || 
+            Entities.GetAbilityByName(entIndex, "orc_backpack") != -1 || 
+            Entities.GetAbilityByName(entIndex, "nightelf_backpack") != -1 || 
+            Entities.GetAbilityByName(entIndex, "undead_backpack") != -1)
 }
 
 function IsBuilder(entIndex) {
@@ -163,6 +170,10 @@ function IsBuilder(entIndex) {
 
 function IsShop(entIndex) {
 	return (Entities.GetAbilityByName( entIndex, "ability_shop") != -1)
+}
+
+function IsTavern(entIndex) {
+    return (Entities.GetUnitLabel( entIndex ) == "tavern")
 }
 
 function IsAlliedUnit(entIndex, targetIndex) {
@@ -177,40 +188,28 @@ function IsNeutralUnit(entIndex) {
 GameUI.SetMouseCallback( function( eventName, arg ) {
     var CONSUME_EVENT = true;
     var CONTINUE_PROCESSING_EVENT = false;
+    var LEFT_CLICK = (arg === 0)
+    var RIGHT_CLICK = (arg === 1)
 
     if ( GameUI.GetClickBehaviors() !== CLICK_BEHAVIORS.DOTA_CLICK_BEHAVIOR_NONE )
         return CONTINUE_PROCESSING_EVENT;
 
     var mainSelected = Players.GetLocalPlayerPortraitUnit()
 
-    if ( eventName === "pressed" && IsBuilder(mainSelected))
+    if ( eventName === "pressed" || eventName === "doublepressed")
     {
-        // Left-click with a builder while BH is active
-        if ( arg === 0 && state == "active")
-        {
-            return SendBuildCommand();
-        }
+        // Builder Clicks
+        if (IsBuilder(mainSelected))
+            if (LEFT_CLICK) 
+                return (state == "active") ? SendBuildCommand() : OnLeftButtonPressed();
+            else if (RIGHT_CLICK) 
+                return OnRightButtonPressed();
 
-        // Right-click (Cancel & Repair)
-        if ( arg === 1 )
-        {
-            return OnRightButtonPressed();
-        }
-    }
-    else if ( eventName === "pressed" || eventName === "doublepressed")
-    {
-        // Left-click
-        if ( arg === 0 )
-        {
+        if (LEFT_CLICK) 
             return OnLeftButtonPressed();
-            //return CONTINUE_PROCESSING_EVENT;
-        }
-
-        // Right-click
-        if ( arg === 1 )
-        {
-            return OnRightButtonPressed();
-        }
+        else if (RIGHT_CLICK) 
+            return OnRightButtonPressed(); 
+        
     }
     return CONTINUE_PROCESSING_EVENT;
 } );

@@ -971,99 +971,6 @@
 		
 		"WakesNeutrals"				"0"
 	}	
-	//=================================================================================
-	// Building Helper Dummy
-	//=================================================================================
-	"npc_bh_dummy"
-	{
-		// General
-		//
-		"BaseClass"					"npc_dota_base_additive"	// Class of entity of link to.
-		"Model"						"models/development/invisiblebox.vmdl"	// Model.
-		"SoundSet"					"Creep_Good_Range"					// Name of sound set.
-		"Level"						"0"
-		"UnitLabel"					"healing_ward"
-		
-		// Abilities
-		//----------------------------------------------------------------
-		
-		"Ability1"					"bh_dummy"			// Ability 1.
-		"Ability2"					""			// Ability 2.
-		"Ability3"					""			// Ability 3.
-		"Ability4"					""			// Ability 4.
-		"Ability5"					""			// Ability 5.
-		"Ability6"					""			// Ability 6 - Extra.
-		"Ability7"					""			// Ability 7 - Extra.
-		"Ability8"					""			// Ability 8 - Extra.
-	
-		// Armor
-		//----------------------------------------------------------------
-		"ArmorPhysical"				"0"			// Physical protection.
-		"MagicalResistance"				"0"			// Magical protection.
-	
-		// Attack
-		//----------------------------------------------------------------
-		"AttackCapabilities"		"DOTA_UNIT_CAP_NO_ATTACK"			// Type of attack - melee, ranged, etc.
-		"AttackDamageMin"			"0"			// Damage range min.
-		"AttackDamageMax"			"0"			// Damage range max.
-		"AttackDamageType"			"DAMAGE_TYPE_ArmorPhysical"
-		"AttackRate"				"1"			// Speed of attack.
-		"AttackAnimationPoint"		"0.5"		// Normalized time in animation cycle to attack.
-		"AttackAcquisitionRange"	"800"		// Range within a target can be acquired.
-		"AttackRange"				"500"		// Range within a target can be attacked.
-		"ProjectileModel"			"" // Particle system model for projectile.
-		"ProjectileSpeed"			"900"		// Speed of projectile.
-	
-		// Attributes
-		//----------------------------------------------------------------
-		"AttributePrimary"			"DOTA_ATTRIBUTE_STRENGTH"
-		"AttributeBaseStrength"		"0"			// Base strength
-		"AttributeStrengthGain"		"0"			// Strength bonus per level.
-		"AttributeBaseIntelligence"	"0"			// Base intelligence
-		"AttributeIntelligenceGain"	"0"			// Intelligence bonus per level.
-		"AttributeBaseAgility"		"0"			// Base agility
-		"AttributeAgilityGain"		"0"			// Agility bonus per level.
-	
-		// Bounty
-		//----------------------------------------------------------------
-		"BountyXP"					"0"			// Experience earn.
-		"BountyGoldMin"				"0"			// Gold earned min.
-		"BountyGoldMax"				"0"			// Gold earned max.
-	
-		// Bounds
-		//----------------------------------------------------------------
-		"BoundsHullName"			"DOTA_HULL_SIZE_SMALL"			// Hull type used for navigation/locomotion.
-	
-		// Movement
-		//----------------------------------------------------------------
-		"MovementCapabilities"		"DOTA_UNIT_CAP_MOVE_NONE"			// Type of locomotion - ground, air
-		"MovementSpeed"				"450"		// Speed
-		"MovementTurnRate"			"1.0"		// Turning rate.
-		"FollowRange"				"250"		// Distance to keep when following
-	
-		// Status
-		//----------------------------------------------------------------
-		"StatusHealth"				"1"			// Base health.
-		"StatusHealthRegen"			"0"			// Health regeneration rate.
-		"StatusMana"				"0"			// Base mana.
-		"StatusManaRegen"			"0"			// Mana regeneration rate.
-	
-		// Team
-		//----------------------------------------------------------------
-		"TeamName"					"DOTA_TEAM_GOODGUYS"			// Team name.
-		"CombatClassAttack"			"DOTA_COMBAT_CLASS_ATTACK_PIERCE"
-		"CombatClassDefend"			"DOTA_COMBAT_CLASS_DEFEND_SOFT"
-		"UnitRelationshipClass"		"DOTA_NPC_UNIT_RELATIONSHIP_TYPE_WARD"
-		
-		// Vision
-		//----------------------------------------------------------------
-		"VisionDaytimeRange"		"0"		// Range of vision during day light.
-		"VisionNighttimeRange"		"0"		// Range of vision at night time.
-	
-		// Bots
-		//----------------------------------------------------------------
-		"AttackDesire"				"1.5"		// How much bots want to attack them vs other non-hero things
-	}
 	//------------------------------------------------------------------------------------
 	//- Units for blood_mage_phoenix ability 								 	-
 	//------------------------------------------------------------------------------------
@@ -4001,17 +3908,13 @@
 		"ModelScale"				"0.8"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
-		"SelectionGroup"            "Human_Peasants"
+		"SelectionGroup"            "Human_Peasants"	
 		"SoundSet"					"Hero_Kunkka"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
 	
 		"UnitLabel"					"builder"
 	
 		"AttacksEnabled"			"ground"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_kunkka.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -4221,20 +4124,16 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Footmen"
 		"SoundSet"					"Hero_DragonKnight"
+		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
 	
 		"AttacksEnabled"			"ground"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_dragon_knight.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					"human_defend_disabled"
-		"Ability2"					"human_backpack_disabled"	 //Reference: Aihn
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4337,20 +4236,16 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Riflemen"
 		"SoundSet"					"Hero_Sniper"
+		"GameSoundsFile" 			"soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					"human_long_rifles_disabled"	 //Reference: Aihn
-		"Ability2"					"human_backpack_disabled"
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4446,20 +4341,16 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Knights"
 		"SoundSet"					"Hero_ChaosKnight"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_chaos_knight.vsndevts"
 	
 		"AttacksEnabled"			"ground"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_chaos_knight.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
 		// Abilities
 		//----------------------------------------------------------------
 		"Ability1"					"human_animal_war_training_disabled"	 //Reference: Aihn
-		"Ability2"					"human_backpack_disabled"
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4566,13 +4457,9 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Sorceress"
 		"SoundSet"					"Hero_Lina"
+	    "GameSoundsFile"           "soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_lina.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -4582,7 +4469,7 @@
 		"Ability2"					"human_slow"	 //Reference: Aply
 		"Ability3"					"human_invisibility_disabled"	 //Reference: Aslo
 		"Ability4"					"human_polymorph_disabled"	 //Reference: Aihn
-		"Ability5"					"human_backpack_disabled"
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4683,13 +4570,9 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Priests"
 		"SoundSet"					"Hero_Oracle"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_oracle.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -4698,7 +4581,7 @@
 		"Ability1"					"human_heal"	 //Reference: Ahea
 		"Ability2"					"human_dispel_magic_disabled"	 //Reference: Ainf
 		"Ability3"					"human_inner_fire_disabled"	 //Reference: Adis
-		"Ability4"					"human_backpack_disabled"
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4800,13 +4683,9 @@
 		"HasInventory"				"1"
 		"SelectionGroup"            "Human_Spell_Breakers"
 		"SoundSet"					"Hero_Silencer"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_silencer.vsndevts"
 	
 		"AttacksEnabled"			"ground"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_silencer.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -4816,7 +4695,7 @@
 		"Ability2"					"human_control_magic_disabled"	 //Reference: Acmg
 		"Ability3"					"generic_spell_immunity"	 //Reference: Amim
 		"Ability4"					"human_feedback"	 //Reference: Afbk
-		"Ability5"					"human_backpack_disabled"
+		"Ability10"					"human_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -4913,13 +4792,9 @@
 		"HealthBarOffset"			"280"
 		"SelectionGroup"            "Human_Flying_Machines"
 		"SoundSet"					"Hero_Gyrocopter"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts"
 	
 		"AttacksEnabled"			"air"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_gyrocopter.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -5018,13 +4893,9 @@
 		"HealthBarOffset"			"280"
 		"SelectionGroup"            "Human_Dragonhawk_Riders"
 		"SoundSet"					"Hero_SkywrathMage"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 	
@@ -5128,6 +4999,7 @@
 		"HealthBarOffset"			"120"
 		"SelectionGroup"            "Human_Mortar_Teams"
 		"SoundSet"					"Hero_Techies"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 	
@@ -5136,11 +5008,6 @@
 		"SplashMediumDamage"		"0.4" //50%
 		"SplashSmallRadius"			"250"
 		"SplashSmallDamage"			"0.1"
-	
-		"precache"
-		{
-			"soundfile" "soundevents/game_sounds_heroes/game_sounds_techies.vsndevts"
-		}
 		
 		"PathfindingSearchDepthScale" "0.5"
 		
@@ -5666,6 +5533,72 @@
 		//----------------------------------------------------------------
 		"VisionDaytimeRange"		"300"		// Range of vision during day light.
 		"VisionNighttimeRange"		"300"		// Range of vision at night time.
+	}
+	"tavern"
+	{
+	    // General
+	    //----------------------------------------------------------------
+	    "BaseClass"                 "npc_dota_building"
+	    "Model"                     "models/props_gameplay/treasure_chest001.vmdl"
+	    "ModelScale"                "5"
+	    "Level"                     "10"
+	    "BoundsHullName"            "DOTA_HULL_SIZE_BARRACKS"
+	    "HealthBarOffset"           "200"
+	    "UseNeutralCreepBehavior"   "0"
+	
+	    "UnitLabel"                 "tavern"
+	
+	    "MinimapIcon"               "minimap_shop"
+	    "MinimapIconSize"           "500"
+	    "MinimapDisableTint"        "1"
+	
+	    "Ability1"                  "" //"ability_shop"
+	    "Ability2"                  "ability_tavern"
+	
+	    // Armor
+	    //----------------------------------------------------------------
+	    "ArmorPhysical"             "0"
+	    "MagicalResistance"         "0"
+	    
+	    // Attack
+	    //----------------------------------------------------------------
+	    "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+	    
+	    // Bounty
+	    //----------------------------------------------------------------
+	    "BountyGoldMin"             "4.0"
+	    "BountyGoldMax"             "6.0"
+	    
+	    // Gold and Lumber
+	    //----------------------------------------------------------------
+	    "GoldCost"                  "105"
+	    "LumberCost"                "105"
+	    
+	    // Movement
+	    //----------------------------------------------------------------
+	    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+	    "MovementSpeed"             "100"
+	    "MovementTurnRate"          "0.5"
+	    
+	    // Status
+	    //----------------------------------------------------------------
+	    "StatusHealth"              "240"
+	    "StatusHealthRegen"         "0.5"
+	    
+	    // Vision
+	    //----------------------------------------------------------------
+	    "VisionDaytimeRange"        "1400"
+	    "VisionNighttimeRange"      "800"
+	    
+	    // Team
+	    //----------------------------------------------------------------
+	    "TeamName"                  "DOTA_TEAM_NEUTRALS"
+	    "CombatClassAttack"         "DOTA_COMBAT_CLASS_ATTACK_BASIC"
+	    "CombatClassDefend"         "DOTA_COMBAT_CLASS_DEFEND_STRONG"
+	    "UnitRelationShipClass"     "DOTA_NPC_UNIT_RELATIONSHIP_TYPE_DEFAULT"
+	    
+	    // Creature Data
+	    //----------------------------------------------------------------
 	}
 	// Hills of Glory
 		// neutral_gnoll
@@ -8471,6 +8404,8 @@
 		"ModelScale"				"1"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Hero_Wisp"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts"
 	
 		"UnitLabel"					"builder"
 		
@@ -8573,6 +8508,7 @@
 		"ModelScale"				"0.8"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
 		"SoundSet"					"Hero_Windrunner"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts"
 	
@@ -8587,8 +8523,8 @@
 		"Ability4"					"nightelf_improved_bows_disabled"	
 		"Ability5"					"nightelf_ultravision_disabled"	 //Reference: Ault - Ultravision
 		"Ability6"					"nightelf_elunes_grace"	 //Reference: Aegr
+		"Ability10"					"nightelf_backpack_disabled"
 		"Ability11"					"nightelf_night_regen"
-		 //Reference: Aien Inventory(2 slot unit) Night Elf
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -8681,6 +8617,7 @@
 		"ModelScale"				"0.7"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
 		"SoundSet"					"Hero_Luna"
 		"GameSoundsFile"			"soundevents/game_sounds_heroes/game_sounds_luna.vsndevts"
 		
@@ -8692,8 +8629,9 @@
 		"Ability1"					"nightelf_sentinel"	 //Reference: Aesn
 		"Ability2"					"nightelf_shadow_meld"	 //Reference: Ashm
 		"Ability3"					"nightelf_moon_glaive"	 //Reference: Amgl - Gets replaced by "nightelf_upgraded_moon_glaive" after the research
-		"Ability4"					""	 //Reference: Aien Inventory(2 slot unit) Night Elf
+		"Ability4"					""
 		"Ability5"					"nightelf_ultravision_disabled"	 //Reference: Ault - Ultravision
+		"Ability10"					"nightelf_backpack_disabled"
 		"Ability11"					"nightelf_night_regen"
 		
 		"precache"
@@ -8793,6 +8731,7 @@
 		"ModelScale"				"0.7"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+	    "SoundSet"                  "Creep_Good_Engine"
 	
 		"AttacksEnabled"			"ground"
 	
@@ -8893,6 +8832,9 @@
 		"ModelScale"				"0.7"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+	    "SoundSet"                  "Hero_Enchantress"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_enchantress.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -8902,8 +8844,9 @@
 		"Ability1"					"nightelf_abolish_magic_disabled"	 //Reference: Aadm
 		"Ability2"					"nightelf_slow_poison"	  	//Reference: Aspo
 		"Ability3"					"generic_spell_immunity"	//Reference: Amim
-		"Ability4"					""	 //Reference: Aien Inventory(2 slot unit) Night Elf
+		"Ability4"					""
 		"Ability5"					"nightelf_ultravision_disabled"	 //Reference: Ault - Ultravision
+		"Ability10"					"nightelf_backpack_disabled"
 		"Ability11"					"nightelf_night_regen"
 		
 		// Armor
@@ -9000,7 +8943,10 @@
 		"Level"						"4"
 		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
 		"FormationRank"				"1"
+	    "SoundSet"                  "Hero_LoneDruid"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_lone_druid.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -9011,8 +8957,8 @@
 		"Ability2"					"nightelf_rejuvenation"	
 		"Ability3"					"nightelf_bear_form"
 		"Ability4"					"nightelf_bear_form_off"	
-		"Ability5"					""	  //Reference: Aien
-		"Ability6"					"nightelf_ultravision_disabled"
+		"Ability5"					"nightelf_ultravision_disabled"
+		"Ability10"					"nightelf_backpack_disabled"
 		"Ability11"					"nightelf_night_regen"
 		
 		// Armor
@@ -9100,6 +9046,9 @@
 		"ModelScale"				"1.35"
 		"Level"						"6"
 		"HealthBarOffset"			"200"
+		"HasInventory"				"1"
+	    "SoundSet"                  "Hero_Tiny"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -9110,7 +9059,7 @@
 		"Ability2"					"nightelf_resistant_skin_disabled"	 //Reference: Arsk
 		"Ability3"					"nightelf_hardened_skin_disabled"	 //Reference: Assk
 		"Ability4"					"nightelf_war_club"	 //Reference: Agra
-		"Ability5"					""	 //Reference: Aien Inventory(2 slot unit) Night Elf
+		"Ability9"					"nightelf_backpack_disabled"
 		"Ability10"					"nightelf_mountain_giant_model"
 		"Ability11"					"nightelf_night_regen"
 		
@@ -9200,6 +9149,9 @@
 		"Level"						"6"
 		"HealthBarOffset"			"200"
 		"ConsideredHero"			"1"
+		"HasInventory"				"1"
+	    "SoundSet"                  "Hero_Tiny"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -9210,7 +9162,7 @@
 		"Ability2"					"nightelf_resistant_skin"	 //Reference: Arsk
 		"Ability3"					"nightelf_hardened_skin"	 //Reference: Assk
 		"Ability4"					"nightelf_war_club"	 //Reference: Agra
-		"Ability5"					""	 //Reference: Aien Inventory(2 slot unit) Night Elf
+		"Ability9"					"nightelf_backpack_disabled"
 		"Ability10"					"nightelf_mountain_giant_model"
 		"Ability11"					"nightelf_night_regen"
 		
@@ -9302,6 +9254,9 @@
 		"ModelScale"				"0.7"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+	    "SoundSet"                  "Hero_Furion"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_furion.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -9312,6 +9267,7 @@
 		"Ability2"					"nightelf_faerie_fire_disabled"	 //Reference: Afa2
 		"Ability3"					"nightelf_cyclone"
 		"Ability4"					"nightelf_ultravision_disabled"	 //Reference: Ault - Ultravision
+		"Ability9"					"nightelf_backpack_disabled"
 		"Ability10"					"nightelf_storm_crow_form_off"
 		"Ability11"					"nightelf_night_regen"
 		
@@ -9412,6 +9368,8 @@
 		"ModelScale"				"1"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+	    "SoundSet"                  "Hero_Puck"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_puck.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -9514,6 +9472,8 @@
 		"ModelScale"				"1"
 		"Level"						"5"
 		"HealthBarOffset"			"140"
+	    "SoundSet"                  "Hero_Jakiro"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_jakiro.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 	
@@ -9705,6 +9665,8 @@
 		"ModelScale"				"1.2"
 		"Level"						"4"
 		"HealthBarOffset"			"140"
+	    "SoundSet"                  "Hero_Windrunner"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -9903,7 +9865,7 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"BoundsHullName"			"DOTA_HULL_SIZE_BARRACKS"
-		"RingRadius"				"220"
+		"RingRadius"				"150"
 		"CollisionSize"				"144"
 		
 		// Building Cost Stats
@@ -10750,7 +10712,7 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"BoundsHullName"			"DOTA_HULL_SIZE_BARRACKS"
-		"RingRadius"				"220"
+		"RingRadius"				"100"
 		"CollisionSize"				"144"
 		
 		// Building Cost Stats
@@ -10795,7 +10757,7 @@
 		//----------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/props_structures/dire_tower001.vmdl"
-		"ModelScale"				"1"
+		"ModelScale"				"0.7"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
 		
@@ -10833,7 +10795,7 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"BoundsHullName"			"DOTA_HULL_SIZE_BUILDING"
-		"RingRadius"				"140"
+		"RingRadius"				"80"
 		"CollisionSize"				"72"
 		
 		// Building Cost Stats
@@ -10896,6 +10858,8 @@
 		"ModelScale"				"1"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Hero_TrollWarlord"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_troll_warlord.vsndevts"
 	
 		"UnitLabel"					"builder"
 	
@@ -10993,9 +10957,12 @@
 		//----------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/heroes/axe/axe.vmdl"
-		"ModelScale"				"1"
+		"ModelScale"				"0.8"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Axe"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -11004,6 +10971,7 @@
 		"AbilityLayout"				"4"
 		"Ability1"					"orc_pillage_disabled"	 //Reference: Asal
 		"Ability2"					"orc_berserker_strength_disabled"
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11097,6 +11065,9 @@
 		"ModelScale"				"0.75"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Huskar"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11104,8 +11075,9 @@
 		//----------------------------------------------------------------
 		"AbilityLayout"				"4"
 		"Ability1"					""	 //Reference: Sbsk
-		"Ability2"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability2"					""
 		"Ability3"					"orc_troll_regeneration_disabled"
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11197,6 +11169,9 @@
 		"ModelScale"				"0.9"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Huskar"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11204,8 +11179,9 @@
 		//----------------------------------------------------------------
 		"AbilityLayout"				"4"
 		"Ability1"					"orc_berserk"	 //Reference: Absk
-		"Ability2"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability2"					""
 		"Ability3"					"orc_troll_regeneration_disabled"
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11295,9 +11271,10 @@
 		//----------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/items/courier/carty_dire/carty_dire.vmdl"
-		"ModelScale"				"1.5"
+		"ModelScale"				"1.7"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"SoundSet"					"Creep_Bad_Engine"
 	
 		"AttacksEnabled"			"ground"
 	
@@ -11339,7 +11316,7 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
-		"RingRadius"				"70"
+		"RingRadius"				"100"
 		"CollisionSize"				"48"
 		"FormationRank"				"3"
 		
@@ -11397,6 +11374,9 @@
 		"ModelScale"				"1"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Bloodseeker"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_bloodseeker.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11406,7 +11386,7 @@
 		"Ability1"					"orc_purge"	 //Reference: Ablo
 		"Ability2"					"orc_lightning_shield"	 //Reference: Alsh
 		"Ability3"					"orc_bloodlust_disabled"	 //Reference: Apg2
-		"Ability4"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11505,6 +11485,9 @@
 		"ModelScale"				"1"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_WitchDoctor"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_witchdoctor.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11611,6 +11594,10 @@
 		"ModelScale"				"1"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"ConsideredHero"			"1"
+		"SoundSet"                  "Hero_SpiritBreaker"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_spirit_breaker.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11621,9 +11608,10 @@
 		"Ability2"					"orc_disenchant"	 //Reference: Aspl
 		"Ability3"					"orc_ancestral_spirit"	 
 		"Ability4"					"orc_ethereal_form"	 //Reference: Aast
-		"Ability5"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability5"					""
 		"Ability6"					""	 //Reference: ACsk - Resistant Skin(3,1 pos, creep)
-		//Reference: Acpf - Corporeal Form
+		"Ability7"					"orc_corporeal_form"	 //Reference: Acpf
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11721,6 +11709,9 @@
 		"ModelScale"				"1"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Chen"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_chen.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -11729,7 +11720,8 @@
 		"AbilityLayout"				"4"
 		"Ability1"					"orc_ensnare"	 //Reference: Aens
 		"Ability2"					"orc_pillage_disabled"	 //Reference: Asal
-		"Ability3"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability3"					""
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11818,9 +11810,10 @@
 		//----------------------------------------------------------------
 		"BaseClass"					"npc_dota_creature"
 		"Model"						"models/courier/smeevil_mammoth/smeevil_mammoth.vmdl"
-		"ModelScale"				"1.7"
+		"ModelScale"				"2"
 		"Level"						"4"
 		"HealthBarOffset"			"140"
+		"SoundSet"					"Creep_Bad_Melee"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -11829,7 +11822,7 @@
 		"AbilityLayout"				"4"
 		"Ability1"					"orc_war_drums"	 //Reference: Aakb
 		"Ability2"					"orc_devour"	 //Reference: Adev
-		"Ability3"					""	 //Reference: Apak - Inventory (Pack Mule)
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -11857,7 +11850,7 @@
 		// Bounds
 		//----------------------------------------------------------------
 		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
-		"RingRadius"				"70"
+		"RingRadius"				"100"
 		"CollisionSize"				"48"
 		"FormationRank"				"2"
 		
@@ -11914,6 +11907,7 @@
 		"ModelScale"				"0.8"
 		"Level"						"4"
 		"HealthBarOffset"			"140"
+		"SoundSet"					"Creep_Bad_Range"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -12005,6 +11999,9 @@
 		"ModelScale"				"0.8"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Batrider"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_batrider.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -12105,6 +12102,9 @@
 		"ModelScale"				"1"
 		"Level"						"5"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Earthshaker"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_earthshaker.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -12112,7 +12112,7 @@
 		//----------------------------------------------------------------
 		"AbilityLayout"				"4"
 		"Ability1"					"orc_pulverize_disabled"	 //Reference: Awar
-		"Ability2"					""	 //Reference: Aion - Inventory(2 slot unit) Orc
+		"Ability10"					"orc_backpack_disabled"
 		
 		// Armor
 		//----------------------------------------------------------------
@@ -14566,6 +14566,8 @@
 		"ModelScale"				"0.8"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Hero_Warlock"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_warlock.vsndevts"
 		
 		"UnitLabel"					"builder"
 	
@@ -14676,6 +14678,8 @@
 		"ModelScale"				"0.8"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Hero_Nevermore"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_nevermore.vsndevts"
 		
 		// Abilities
 		//----------------------------------------------------------------
@@ -14767,6 +14771,9 @@
 		"ModelScale"				"0.7"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_LifeStealer"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_life_stealer.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -14777,6 +14784,7 @@
 		"Ability2"					"undead_return_resources"	
 		"Ability3"					"undead_cannibalize_disabled"	 //Reference: Acan
 		"Ability4"					"undead_ghoul_frenzy_disabled"
+		"Ability10"					"undead_backpack_disabled"
 		"Ability11"					"undead_blight_regen"
 		
 		// Armor
@@ -14867,6 +14875,9 @@
 		"ModelScale"				"0.80"
 		"Level"						"3"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Weaver"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_weaver.vsndevts"
 		
 		"AttacksEnabled"			"ground"
 	
@@ -14877,6 +14888,7 @@
 		"Ability2"					""	 //Reference: Aspa
 		"Ability3"					"undead_burrow_disabled"	 //Reference: Abur
 		"Ability4"					""	 //Reference: Aiun
+		"Ability10"					"undead_backpack_disabled"
 		"Ability11"					"undead_blight_regen"
 		
 		// Armor
@@ -14970,6 +14982,8 @@
 		"ModelScale"				"1"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Visage_Familiar"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_visage.vsndevts"
 		
 		"AttacksEnabled"			"ground, air"
 	
@@ -15059,6 +15073,9 @@
 		"ModelScale"				"1"
 		"Level"						"4"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Pudge"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -15068,6 +15085,7 @@
 		"Ability1"					"undead_cannibalize_disabled"	 //Reference: Aap1
 		"Ability2"					"undead_disease_cloud_disabled"	 //Reference: Aiun
 		"Ability3"					""	 //Reference: Acn2
+		"Ability10"					"undead_backpack_disabled"
 		"Ability11"					"undead_blight_regen"
 	
 		// Armor
@@ -15161,6 +15179,7 @@
 		"ModelScale"				"1"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"SoundSet"					"Creep_Bad_Engine"
 	
 		"AttacksEnabled"			"ground"
 	
@@ -15265,6 +15284,8 @@
 		"BoundsHullName"			"DOTA_HULL_SIZE_HERO"
 		"HealthBarOffset"			"180"
 		"FormationRank"				"2"
+		"SoundSet"                  "Hero_ObsidianDestroyer"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
 		
 		"AttacksEnabled"			"ground, air"
 	
@@ -15372,6 +15393,8 @@
 		"ModelScale"				"1"
 		"Level"						"5"
 		"HealthBarOffset"			"350"
+		"SoundSet"                  "Hero_ObsidianDestroyer"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -15476,6 +15499,9 @@
 		"ModelScale"				"0.8"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_Necrolyte"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_necrolyte.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -15486,6 +15512,7 @@
 		"Ability2"					"undead_raise_dead_disabled"	 //Reference: Arai
 		"Ability3"					"undead_unholy_frenzy_disabled"	 //Reference: Auhf
 		"Ability4"					""	 //Reference: Aiun
+		"Ability10"					"undead_backpack_disabled"
 		"Ability11"					"undead_blight_regen"
 		
 		// Armor
@@ -15583,6 +15610,9 @@
 		"ModelScale"				"1"
 		"Level"						"2"
 		"HealthBarOffset"			"140"
+		"HasInventory"				"1"
+		"SoundSet"                  "Hero_DeathProphet"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_death_prophet.vsndevts"
 		
 		"AttacksEnabled"			"ground, air"
 	
@@ -15593,6 +15623,7 @@
 		"Ability2"					"undead_curse_disabled"	 //Reference: Acrs
 		"Ability3"					"undead_possession_disabled"	 //Reference: Aps2
 		"Ability4"					""	 //Reference: Aiun
+		"Ability10"					"undead_backpack_disabled"
 		"Ability11"					"undead_blight_regen"
 		
 		// Armor
@@ -15688,6 +15719,7 @@
 		"ModelScale"				"1"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"					"Creep_Good_Melee"
 	
 		"AttacksEnabled"			"ground"
 		
@@ -15777,6 +15809,8 @@
 		"ModelScale"				"0.7"
 		"Level"						"1"
 		"HealthBarOffset"			"140"
+		"SoundSet"                  "Hero_Pugna"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_pugna.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 		
@@ -15878,6 +15912,8 @@
 		"ModelScale"				"1.2"
 		"Level"						"6"
 		"HealthBarOffset"			"180"
+		"SoundSet"                  "Hero_Winter_Wyvern"
+	    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_winter_wyvern.vsndevts"
 	
 		"AttacksEnabled"			"ground, air"
 	

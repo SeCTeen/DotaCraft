@@ -3364,6 +3364,38 @@
 			}
 		}
 	}
+	// Creates 3 floating orbs just for looks
+	"blood_mage_orbs"
+	{
+		"BaseClass"             		"ability_datadriven"
+		"AbilityTextureName"			"hero_ability_name"
+		"MaxLevel" 						"1"
+	
+		"AbilityBehavior"				"DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_HIDDEN | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+	
+		"precache"
+		{
+			"particle" 	"particles/custom/human/blood_mage/exort_orb.vpcf"
+		}
+		
+		"Modifiers"
+		{
+			"modifier_blood_mage_orbs"
+			{
+				"IsHidden"			"1"
+				"Passive"			"1"
+				"Attributes"		"MODIFIER_ATTRIBUTE_PERMANENT"
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile"	"heroes/blood_mage/orbs.lua"
+						"Function"		"AttachOrbs"
+					}
+				}
+			}
+		}
+	}
 	// Blood Mage Phoenix
 	// Author: Noya
 	// Date: 26.01.2015.
@@ -28003,12 +28035,8 @@
 			{
 				"Passive"			"1"
 				"IsHidden"			"1"
-				"States"
-				{
-					"MODIFIER_STATE_MUTED" "MODIFIER_STATE_VALUE_ENABLED"
-				}
 	
-				"ThinkInterval"  "0.5"
+				"ThinkInterval"  "0.1"
 				"OnIntervalThink"
 				{
 					"RunScript"
@@ -28016,8 +28044,29 @@
 						"ScriptFile"	"buildings/shop.lua"
 						"Function"		"CheckHeroInRadius"
 					}
+					"RunScript"
+					{
+						"ScriptFile"	"buildings/shop.lua"
+						"Function"		"SellItemsInInventory"
+					}
 				}
 			}
+					
+			"modifier_create_shop"
+			{	
+				"Passive" 	"1"
+				"IsHidden"	"1"
+				
+				"OnCreated"
+				{
+					"RunScript"
+					{
+						"ScriptFile" 	"buildings/shop.lua"
+						"Function"		"Setup_Shop"			
+					}		
+				}
+			}
+			
 		}		
 	}
 	// Siege units can be repaired
@@ -28532,7 +28581,7 @@
 		"AbilityTextureName"		"nightelf_shadow_meld"
 		"MaxLevel"					"1"
 			
-		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE"
+		"AbilityBehavior"			"DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_NOT_LEARNABLE | DOTA_ABILITY_BEHAVIOR_DONT_RESUME_ATTACK"
 			
 		"AbilityCastPoint"			"0"
 		"AbilityCooldown"			"0"
@@ -28634,7 +28683,6 @@
 				"IsBuff"			"1"
 				"IsPurgable"		"1"
 	
-				"Priority"          "MODIFIER_PRIORITY_ULTRA"
 				"States"
 				{
 					"MODIFIER_STATE_INVISIBLE"	"MODIFIER_STATE_VALUE_ENABLED"
@@ -28644,7 +28692,6 @@
 			"modifier_shadow_meld_active"
 			{
 				"IsHidden"			"1"
-				"Priority"          "MODIFIER_PRIORITY_ULTRA"
 				"Properties"
 				{
 					"MODIFIER_PROPERTY_DISABLE_AUTOATTACK"	"1"

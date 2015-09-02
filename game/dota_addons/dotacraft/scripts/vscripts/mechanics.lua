@@ -297,10 +297,10 @@ function PlayerHasEnoughGold( player, gold_cost )
 	local pID = hero:GetPlayerID()
 	local gold = hero:GetGold()
 
-	if gold < gold_cost then
-		SendErrorMessage(pID, "#error_not_enough_gold")
-		return false
+	if not gold_cost or  gold > gold_cost then 
+		return true
 	else
+		SendErrorMessage(pID, "#error_not_enough_gold")
 		return true
 	end
 end
@@ -310,11 +310,11 @@ end
 function PlayerHasEnoughLumber( player, lumber_cost )
 	local pID = player:GetAssignedHero():GetPlayerID()
 
-	if player.lumber < lumber_cost then
+	if not lumber_cost or player.lumber > lumber_cost then 
+		return true 
+	else
 		SendErrorMessage(pID, "#error_not_enough_lumber")
 		return false
-	else
-		return true
 	end
 end
 
@@ -464,9 +464,80 @@ function GetCityCenterNameForHeroRace( hero_name )
 	return citycenter_name
 end
 
+-- Goes through the structures of the player, checking for the max level city center
+-- If no city center is found, the player has a 2 minute window in which a city center must be built or all his structures will be revealed
+function CheckCurrentCityCenters( player )
+	local structures = player.structures
+	local city_center_level = 0
+	for k,building in pairs(structures) do
+		if IsCityCenter(building) then
+			local level = building:GetLevel()
+			if level > city_center_level then
+				city_center_level = level
+			end
+		end
+	end
+	player.city_center_level = city_center_level
+
+	print("Current City Center Level for player "..player:GetPlayerID().." is: "..city_center_level)
+
+	if player.city_center_level == 0 then
+		local time_to_reveal = 120
+		print("Player "..player:GetPlayerID().." has no city centers left standing. Revealed in "..time_to_reveal.." seconds until a City Center is built.")
+		player.RevealTimer = Timers:CreateTimer(time_to_reveal, function()
+			RevealPlayerToAllEnemies(player)
+		end)
+	else
+		StopRevealingPlayer(player)
+	end
+end
+
+-- Creates revealer entities on each building of the player
+function RevealPlayerToAllEnemies( player )
+	local playerID = player:GetPlayerID()
+	local units = player.units
+	local structures = player.structures
+
+	print("Revealing Player "..playerID)
+
+	local playerName = PlayerResource:GetPlayerName(playerID)
+	if playerName == "" then playerName = "Player "..playerID end
+	GameRules:SendCustomMessage("Revealing "..playerName, 0, 0)
+
+	for k,building in pairs(structures) do
+		local origin = building:GetAbsOrigin()
+		local vision = buildling:GetDayTimeVisionRange()
+		local ent = SpawnEntityFromTableSynchronous("ent_fow_revealer", {origin = origin, vision = vision, teamnumber = 0})
+		building.revealer = ent
+	end
+end
+
+function StopRevealingPlayer( player )
+	local structures = player.structures
+
+	print("Stop Revealing Player "..player:GetPlayerID())
+
+	if player.RevealTimer then
+		Timers:RemoveTimer(player.RevealTimer)
+		player.RevealTimer = nil
+	end
+
+	for k,building in pairs(structures) do
+		if building.revealer then
+			DoEntFireByInstanceHandle(building.revealer, "Kill", "1", 1, nil, nil)
+			building.revealer = nil
+		end
+	end
+end
+
 -- Checks the UnitLabel for "city_center"
 function IsCityCenter( unit )
 	return IsCustomBuilding(unit) and string.match(unit:GetUnitLabel(), "city_center")
+end
+
+-- Returns the player.city_center_level
+function GetPlayerCityLevel( player )
+	return player.city_center_level
 end
 
 -- Returns string with the name of the builders associated with the hero_name
@@ -704,6 +775,10 @@ end
 
 function IsCustomTower( unit )
     return unit:HasAbility("ability_tower")
+end
+
+function IsCustomShop( unit )
+	return unit:HasAbility("ability_shop")
 end
 
 function IsMechanical( unit )
@@ -1149,6 +1224,8 @@ function CreateBlight(location, size)
 	local radius = 960
 	if size == "small" then
 		radius = 704
+	elseif size == "item" then
+		radius = 384
 	end
 	local particle_spread = 256
 	local count = 0
@@ -1228,14 +1305,18 @@ end
 
 -- Ground/Air Attack mechanics
 function UnitCanAttackTarget( unit, target )
-  if not unit:HasAttackCapability() 
-    or (target.IsInvulnerable and target:IsInvulnerable()) 
-    or (target.IsAttackImmune and target:IsAttackImmune()) 
-    or not unit:CanEntityBeSeenByMyTeam(target) then
-    return false
-  end
+	local attacks_enabled = GetAttacksEnabled(unit)
+	local target_type = GetMovementCapability(target)
+  
+  	if not unit:HasAttackCapability() 
+    	or (target.IsInvulnerable and target:IsInvulnerable()) 
+    	or (target.IsAttackImmune and target:IsAttackImmune()) 
+    	or not unit:CanEntityBeSeenByMyTeam(target) then
+    	
+    		return false
+  	end
 
-  return true
+  	return string.match(attacks_enabled, target_type)
 end
 
 -- Check the Acquisition Range (stored on spawn) for valid targets that can be attacked by this unit
@@ -1279,6 +1360,16 @@ function GetAttacksEnabled( unit )
 	end
 
 	return attacks_enabled or "ground"
+end
+
+function SetAttacksEnabled( unit, attack_string )
+	local unitName = unit:GetUnitName()
+
+	if unit:IsHero() then
+		GameRules.HeroKV[unitName]["AttacksEnabled"] = attack_string
+	elseif GameRules.UnitKV[unitName] then
+		GameRules.UnitKV[unitName]["AttacksEnabled"] = attack_string
+	end
 end
 
 -- Searches for "AttacksEnabled", false by omission
@@ -1429,6 +1520,33 @@ function ReorderItems( caster )
     end
 end
 
+-- Sells an item from any unit, with gold and lumber cost refund
+function SellCustomItem( unit, item )
+	local player = unit:GetPlayerOwner()
+	local pID = player:GetPlayerID()
+	local item_name = item:GetAbilityName()
+    local GoldCost = GameRules.ItemKV[item_name]["ItemCost"]
+    local LumberCost = GameRules.ItemKV[item_name]["LumberCost"]
+
+    -- 10 second sellback
+    local time = item:GetPurchaseTime()
+    local refund_factor = GameRules:GetGameTime() <= time+10 and 1 or 0.5
+
+    if GoldCost then
+        PlayerResource:ModifyGold(pID, GoldCost*refund_factor, false, 0)
+        PopupGoldGain( unit, GoldCost*refund_factor)
+    end
+
+    if LumberCost then
+        ModifyLumber( player, LumberCost*refund_factor )
+        PopupLumber( unit, LumberCost*refund_factor)
+    end
+
+    EmitSoundOnClient("General.Sell", player)
+
+    item:RemoveSelf()
+end
+
 function GetItemSlot( unit, target_item )
 	for itemSlot = 0,5 do
 		local item = unit:GetItemInSlot(itemSlot)
@@ -1437,6 +1555,25 @@ function GetItemSlot( unit, target_item )
 		end
 	end
 	return -1
+end
+
+function CountInventoryItems(unit)
+	local count = 0
+	for i=0, 5 do
+		if unit:GetItemInSlot(i) then
+			count = count + 1
+		end
+	end
+	
+	return count
+end
+
+function IsAlliedUnit( unit, target )
+	return (unit:GetTeamNumber() == target:GetTeamNumber())
+end
+
+function IsNeutralUnit( target )
+	return (target:GetTeamNumber() == DOTA_TEAM_NEUTRALS)
 end
 
 function StartItemGhosting(shop, unit)

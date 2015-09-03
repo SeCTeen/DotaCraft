@@ -172,6 +172,7 @@ function dotacraft:InitGameMode()
 	ListenToGameEvent('game_rules_state_change', Dynamic_Wrap(dotacraft, 'OnGameRulesStateChange'), self)
 	ListenToGameEvent('entity_hurt', Dynamic_Wrap(dotacraft, 'OnEntityHurt'), self)
 	ListenToGameEvent('tree_cut', Dynamic_Wrap(dotacraft, 'OnTreeCut'), self)
+	ListenToGameEvent('player_chat', Dynamic_Wrap(dotacraft, 'OnPlayerChat'), self)
 	--ListenToGameEvent('player_disconnect', Dynamic_Wrap(dotacraft, 'OnDisconnect'), self)
 	--ListenToGameEvent('dota_item_purchased', Dynamic_Wrap(dotacraft, 'OnItemPurchased'), self)
 	--ListenToGameEvent('dota_item_picked_up', Dynamic_Wrap(dotacraft, 'OnItemPickedUp'), self)
@@ -248,8 +249,6 @@ function dotacraft:InitGameMode()
 	SendToServerConsole( "dota_combine_models 0" )
 
 	-- Console Commands
-	Convars:RegisterCommand( "debug_trees", Dynamic_Wrap(dotacraft, 'DebugTrees'), "Prints the trees marked as pathable", 0 )
-	Convars:RegisterCommand( "debug_blight", Dynamic_Wrap(dotacraft, 'DebugBlight'), "Prints the positions marked for undead buildings", 0 )
 	Convars:RegisterCommand( "skip_selection", Dynamic_Wrap(dotacraft, 'Skip_Selection'), "Skip Selection", 0 )
 	
 	-- Lumber AbilityValue, credits to zed https://github.com/zedor/AbilityValues
@@ -1134,37 +1133,6 @@ function dotacraft:OnTreeCut(keys)
 			ToggleOff(gather_ability)
 		end
 	end
-end
-
--- A rune was activated by a player
-function dotacraft:OnRuneActivated (keys)
-	print ('[DOTACRAFT] OnRuneActivated')
-	--DeepPrintTable(keys)
-
-	local player = PlayerResource:GetPlayer(keys.PlayerID)
-	local rune = keys.rune
-
-	--[[ Rune Can be one of the following types
-	DOTA_RUNE_DOUBLEDAMAGE
-	DOTA_RUNE_HASTE
-	DOTA_RUNE_HAUNTED
-	DOTA_RUNE_ILLUSION
-	DOTA_RUNE_INVISIBILITY
-	DOTA_RUNE_MYSTERY
-	DOTA_RUNE_RAPIER
-	DOTA_RUNE_REGENERATION
-	DOTA_RUNE_SPOOKY
-	DOTA_RUNE_TURBO
-	]]
-end
-
--- A player took damage from a tower
-function dotacraft:OnPlayerTakeTowerDamage(keys)
-	print ('[DOTACRAFT] OnPlayerTakeTowerDamage')
-	--DeepPrintTable(keys)
-
-	local player = PlayerResource:GetPlayer(keys.PlayerID)
-	local damage = keys.damage
 end
 
 -- A player picked a hero
